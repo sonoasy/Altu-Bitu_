@@ -16,22 +16,22 @@ bool cmp(const string a, string b) {
 	int sum2 = 0;
 
 	for (int i = 0; i < a.size(); i++) {
-			if (a[i] <='9' && a[i] >'0') {
-				sum1 +=  a[i]-'0';
-			}
+		if (a[i] <= '9' && a[i] >= '0') {
+			sum1 += a[i] - '0';
+		}
 	}
 	for (int i = 0; i < b.size(); i++) {
-			if (b[i] <= '9' && b[i] > '0') {
-				sum2 += b[i] - '0';
-			}
+		if (b[i] <= '9' && b[i] >= '0') {
+			sum2 += b[i] - '0';
+		}
 	}
 	if (sum1 != sum2) {
-			return sum1 < sum2;
-			
+		return sum1 < sum2;
+
 	}
 
 	return a < b;
-	
+
 }
 
 string s;
@@ -50,6 +50,6 @@ int main() {
 	sort(v.begin(), v.end(), cmp);
 
 	for (int i = 0; i < n; i++) {
-		cout <<v[i]<<'\n' ;
+		cout << v[i] << '\n';
 	}
 }
