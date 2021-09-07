@@ -6,8 +6,8 @@ using namespace std;
 int num[MAX] = { 0 }; //각 시험장 응시자 수
 long long answer = 0;
 int main() {
-	
-     //백준 13458번
+
+	//백준 13458번
 	int n;
 	cin >> n;  //시험장 갯수
 	for (int i = 0; i < n; i++) {
@@ -23,18 +23,14 @@ int main() {
 	for (int i = 0; i < n; i++) {
 		num[i] -= b; //num[i]가 b보다 작을수 있음(총감독관 1명만 할당)
 		if (num[i] > 0) { //아직 남은 감독인원이 있으면
-			if (num[i] / c > 0) {
-				answer += num[i] / c;
-				num[i] = num[i] % c;
-			}
-			else {
-				answer++;
-				continue;
-			}
+			
+			answer += num[i] / c;
+			num[i] = num[i] % c;
 			if (num[i] > 0) {
 				answer++;
 
 			}
+			
 		}
 
 	}
