@@ -5,17 +5,17 @@
 
 using namespace std;
 
-vector<pair<int,int>> v;
+vector<pair<int, int>> v;
 
-bool cmp(pair<int, int> a,  pair<int, int> b) {
+bool cmp(pair<int, int> a, pair<int, int> b) {
+
+	//y 증가하는 순, 같으면 x가 증가하는 순
 	if (a.second == b.second) {
 		return a.first < b.first;
 	}
-	else {
-		return a.second < b.second;
-	}
 	
-	
+	//그외의 경우
+	return a.second < b.second;
 	
 }
 
@@ -29,10 +29,10 @@ int main() {
 		v.push_back({ f,s });
 	}
 	//y좌표가 증가하는 순서-> 같으면 x좌표가 증가하는 순서(오름차순)
-	sort(v.begin(),v.end(),cmp);
+	sort(v.begin(), v.end(), cmp);
 
 	for (int i = 0; i < n; i++) {
-		cout << v[i].first <<' '<< v[i].second << '\n';
+		cout << v[i].first << ' ' << v[i].second << '\n';
 	}
-	
+
 }
