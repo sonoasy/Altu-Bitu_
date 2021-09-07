@@ -5,6 +5,7 @@
 
 using namespace std;
 vector<int> a;
+int dp[MAX] = { 0 };
 int answer = 0;
 int main() {
 	//백준 11399번
@@ -19,12 +20,15 @@ int main() {
 
 	//빨리 끝나는 사람이 먼저 인출
 	sort(a.begin(), a.end());
-
-	for (int i = 0; i < n; i++) {
-		for (int j = 0; j <= i; j++) {
-			answer += a[j];
-		}
+	dp[0] = a[0];
+	answer += dp[0];
+	for (int i = 1; i < n; i++) {
+		//정렬 되었으므로 앞에사람 대기시간+ 자신의 시간 - 각자의 대기시간 
+		dp[i] = dp[i - 1] + a[i];
+		answer+=dp[i];
 	}
+
+	
 	cout << answer;
 
 }
