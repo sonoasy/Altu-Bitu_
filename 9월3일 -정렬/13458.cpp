@@ -36,7 +36,7 @@ int main() {
 	}
 	cout << answer;
 
-
+ 
 
 
 }
