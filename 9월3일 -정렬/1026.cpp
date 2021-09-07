@@ -11,7 +11,7 @@ int main() {
 	//백준 1026번
 	int n;
 	cin >> n;
-
+ 
 	a.assign(n,0);
 	b.assign(n, 0);
 
