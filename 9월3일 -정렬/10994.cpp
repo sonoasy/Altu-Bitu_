@@ -2,109 +2,40 @@
 #include<algorithm>
 #include<vector>
 #include<string>
-
+#include<string.h>
 using namespace std;
 
+char makestar[500][500];
+
 //별 직사각형 만들기
-void star(int n) { //첫째줄,마지막 줄이면 한 줄
+void star(int x,int y,int n) { 
 
-	for (int j = n; j > 0; j--) {
-
-		//긴 별줄 앞에 오는 작은 별
-		for (int k = 0; k < 2 * (n - j); k++) {
-			if (k % 2 == 0) {
-				cout << '*';
-			}
-			else {
-				cout << ' ';
-			}
-
-		}
-		//긴 별줄
-		for (int i = 2 * (n - j); i < 2 * (n + j) - 3; i++) {
-			cout << '*';
-		}
-		//긴 별줄 뒤에 오는 작은 별
-		for (int k = 2 * (n + j) - 3; k < 4 * n - 3; k++) {
-			if (k % 2 == 0) {
-				cout << '*';
-			}
-			else {
-				cout << ' ';
-			}
-
-		}
-
-		cout << '\n';
-		//긴 별줄 다음에 한칸씩 띄워서 있는거
-		if (j != 1) {
-			//앞쪽 
-			for (int k = 0; k < 4 * n - 3; k++) {
-				if (k == 0 || k <= 2 * (n - j) || k == 4 * n - 4 || k >= (4 * n - 4 - 2 * (n - j))) {
-					if (k % 2 == 0) {
-						cout << '*';
-					}
-					else {
-						cout << ' ';
-					}
-				}
-				else {
-					cout << ' ';
-				}
-			}
-			cout << '\n';
-		}
+	if (n == 1) {
+		makestar[x][y]='*';
+		return;
 	}
-	//반대로 만들기
+	//x는 행(세로), y가 열(가로)
 
-	for (int j = 2; j <= n; j++) {
-		//긴 별줄 다음에 한칸씩 띄워서 있는거
-		if (j != 1) {
-			//앞쪽 
-			for (int k = 0; k < 4 * n - 3; k++) {
-				if (k == 0 || k <= 2 * (n - j) || k == 4 * n - 4 || k >= (4 * n - 4 - 2 * (n - j))) {
-					if (k % 2 == 0) {
-						cout << '*';
-					}
-					else {
-						cout << ' ';
-					}
-				}
-				else {
-					cout << ' ';
-				}
-			}
-			cout << '\n';
-		}
-
-		//긴 별줄 앞에 오는 작은 별
-		for (int k = 0; k < 2 * (n - j); k++) {
-			if (k % 2 == 0) {
-				cout << '*';
-			}
-			else {
-				cout << ' ';
-			}
-
-		}
-		//긴 별줄
-		for (int i = 2 * (n - j); i < 2 * (n + j) - 3; i++) {
-			cout << '*';
-		}
-		//긴 별줄 뒤에 오는 작은 별
-		for (int k = 2 * (n + j) - 3; k < 4 * n - 3; k++) {
-			if (k % 2 == 0) {
-				cout << '*';
-			}
-			else {
-				cout << ' ';
-			}
-
-		}
-
-		cout << '\n';
+	
+	//맨 위 긴줄 저장
+	for (int i = y; i < y+4 * n - 3; i++) {
+		//행은 그대로 
+		makestar[x][i] = '*';
+	}
+	//양쪽 세로줄 저장
+	for (int i = x+1; i < x + 4 * n - 3; i++) {
+			makestar[i][y] = '*';
+			makestar[i][y + 4 * n - 4] = '*';
 
 	}
+	//맨 아래 긴줄 저장
+	for (int i = y; i < y + 4 * n - 3; i++) {
+		makestar[x +4 * n - 4][i] = '*';
+	}
+
+
+	star(x+2,y+2,n - 1);
+	return;
 }
 
 
@@ -114,9 +45,19 @@ int main() {
 	int n;
 
 	cin >> n;
+	//초기화하기 
+	fill(&makestar[0][0], &makestar[4*n-3][4*n-3], ' ');
+	
 	int s = n;
-	star(n);
+	star(0,0,n);
 
+	for (int i = 0; i <4*n-3; i++) {
+		for (int j = 0; j < 4*n-3; j++) {
+			cout << makestar[i][j];
+		}
+		//한줄 띄는거 여기서 처리
+		cout << '\n';
+	}
 
 
 
