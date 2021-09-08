@@ -8,7 +8,7 @@ int cnt = 0;
 
 bool check[26] = { false };
 
-void checkgroup(string s) { //그룹함수인지 확인하기
+int checkgroup(string s) { //그룹함수인지 확인하기
 	int flag = 1;
 	//check 초기화하기
 	fill_n(check, 26, false);
@@ -25,10 +25,7 @@ void checkgroup(string s) { //그룹함수인지 확인하기
 			check[s[j] - 'a'] = true;
 		}
 	}
-	if (flag == 1) {
-
-		cnt++;
-	}
+	return flag;
 
 }
 
@@ -41,10 +38,15 @@ int main() {
 	for (int i = 0; i < n; i++) {
 
 		cin >> s; //문자 입력
-		checkgroup(s);
-		
+		if (checkgroup(s)) {
+			cnt++;
+		}
+
 	}
+	
 	cout << cnt;
+
+
 
 	return 0;
 
