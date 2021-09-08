@@ -5,6 +5,18 @@
 
 using namespace std;
 
+int check(string a) { //문자열 내 숫자인 글자의 숫자합
+	int sum = 0;
+	for (int i = 0; i < a.size(); i++) {
+		if (a[i] <= '9' && a[i] >= '0') {
+			sum += a[i] - '0';
+		}
+	}
+	return sum;
+
+}
+
+
 bool cmp(const string a, string b) {
 
 	if (a.size() != b.size()) {
@@ -15,16 +27,8 @@ bool cmp(const string a, string b) {
 	int sum1 = 0;
 	int sum2 = 0;
 
-	for (int i = 0; i < a.size(); i++) {
-		if (a[i] <= '9' && a[i] >= '0') {
-			sum1 += a[i] - '0';
-		}
-	}
-	for (int i = 0; i < b.size(); i++) {
-		if (b[i] <= '9' && b[i] >= '0') {
-			sum2 += b[i] - '0';
-		}
-	}
+	sum1 = check(a);
+	sum2 = check(b);
 	if (sum1 != sum2) {
 		return sum1 < sum2;
 
@@ -52,4 +56,4 @@ int main() {
 	for (int i = 0; i < n; i++) {
 		cout << v[i] << '\n';
 	}
-} 
+}
