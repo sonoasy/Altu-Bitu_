@@ -53,11 +53,11 @@ void includeactive(int idietenergy, int idietactive, int days) {
 		if (abs(loss) > T) {
 			if (loss < 0) {
 				//음수 나눗셈-> 양수로 바꿔서 나누고 몫에 -1곱하기
-			    loss = round((abs((long long)loss) / 2)) * (-1);
+			    loss = floor((abs(loss) / 2.0) * (-1));
 			
 			}
 			else {
-				loss = loss / 2;
+				loss = loss / 2.0;
 			}
 			normalloss += loss;
 
@@ -92,7 +92,7 @@ void includeactive(int idietenergy, int idietactive, int days) {
 
 int main() {
 	//백준 19363번
-	
+
 
 	cin >> beforeweight1 >> beforenergy >> T;
 	normalloss = beforenergy;
@@ -117,6 +117,14 @@ int main() {
 	else {
 		cout << weight2 << ' ' << loss2 << ' ' << check;
 	}
+
+
+
+
+	
+	
+
+	
 
 
 	
