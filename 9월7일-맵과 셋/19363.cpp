@@ -11,10 +11,17 @@ long long days, dietenergy, dietactive;
 //기초 대사량
 long long normalloss;
 
+int flag1;    //기초 대사량 변화 고려 안할때 결과 출력하기 위한 지표
+int flag2;    //기초 대사량 변화 고려 할때 결과 출력하기 위한 지표
+
+int weight1, loss1; //기초 대사량 변화 고려 안할때 결과 출력
+int weight2, loss2; //기초 대사량 변화 고려 할때 결과 출력
+string check;  //기초 대사량 변화 고려 할때 요요 여부
+
 //기초 대사량 변화 고려 안함
 void defaultactive(int ddietenergy, int ddietactive, int days) {
-	int flag = 0;
-	
+	flag1 = 0;
+
 	while (days--) {
 
 		//빠지는 체중량
@@ -23,21 +30,19 @@ void defaultactive(int ddietenergy, int ddietactive, int days) {
 		//체중변화
 		beforeweight1 -= abs(loss);
 		if (beforeweight1 <= 0) {
-			flag = 1;
+			flag1 = 1;
 			break;
 		}
 	}
-	if (flag == 1) {
-		cout << "Danger Diet" << '\n';
-		return;
-	}
-	//printf("%llu %llu\n", beforeweight2, normalloss);
-	cout << beforeweight1 << ' ' << normalloss << '\n';
+
+	weight1 = beforeweight1;
+	loss1 = normalloss;
+
 
 }
 //기초 대사량 변화 고려함
 void includeactive(int idietenergy, int idietactive, int days) {
-	int flag = 0;
+	flag2 = 0;
 	//다이어트 기간동안 
 	while (days--) {
 
@@ -47,10 +52,12 @@ void includeactive(int idietenergy, int idietactive, int days) {
 		//체중변화
 		if (abs(loss) > T) {
 			if (loss < 0) {
-				loss = (int)float((float)loss / 2);
+				//음수 나눗셈-> 양수로 바꿔서 나누고 몫에 -1곱하기
+			    loss = round((abs((long long)loss) / 2)) * (-1);
+			
 			}
 			else {
-				loss = (int)float((float)loss / 2);
+				loss = loss / 2;
 			}
 			normalloss += loss;
 
@@ -58,27 +65,25 @@ void includeactive(int idietenergy, int idietactive, int days) {
 
 
 		if (beforeweight2 <= 0 || normalloss <= 0) {
-			flag = 1;
+			flag2 = 1;
 			break;
 		}
 
 	}
-	if (flag == 1) {
-		cout << "Danger Diet";
-		return;
-	}
+
 	//요요 여부
 	long long yoyo = beforenergy - (abs(normalloss));
-	string check;
+	
 	if (yoyo > 0) {
 		check = "YOYO";
 	}
 	else {
 		check = "NO";
 	}
-	cout << beforeweight2 << ' ' << normalloss << ' ' << check;
-	//printf("%ll %ll %s",beforeweight2,normalloss,check);
-
+	weight2 = beforeweight2;
+	loss2 = normalloss;
+	
+	
 
 }
 
@@ -87,7 +92,7 @@ void includeactive(int idietenergy, int idietactive, int days) {
 
 int main() {
 	//백준 19363번
-
+	
 
 	cin >> beforeweight1 >> beforenergy >> T;
 	normalloss = beforenergy;
@@ -97,5 +102,23 @@ int main() {
 	defaultactive(dietenergy, dietactive, days);
 	includeactive(dietenergy, dietactive, days);
 
+	if (flag1 == 1) {
+		cout << "Danger Diet" << '\n';
 
+	}
+	else {
+		cout << weight1 << ' ' << loss1 << '\n';
+	}
+
+	if (flag2 == 1) {
+		cout << "Danger Diet";
+
+	}
+	else {
+		cout << weight2 << ' ' << loss2 << ' ' << check;
+	}
+
+
+	
+	
 }
