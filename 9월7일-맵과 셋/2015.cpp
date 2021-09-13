@@ -6,34 +6,38 @@
 #include<cstdio>
 using namespace std;
 
-int arr[200001] = { 0 };
-map<int, long long> m;
+
 
 int main() {
 	//백준 2015번
-	int n, k;
+          
+	//숫자 저장 arr
+	int arr[200001] = { 0 };
+	//어떤 합이 되는 갯수 현황 map
+	map<int, long long> m;
 	
+	int n, k;
 	cin >> n >> k;
 
 	//부분합이 k가되는 갯수 구하기 
 
 	for (int i = 1; i <= n; i++) {
 		cin >> arr[i];
-		
+
 	}
-	
+
 	//누적합 구하기
 	for (int i = 1; i <= n; i++) {
-		arr[i] += arr[i-1];
+		arr[i] += arr[i - 1];
 
 	}
 
 	long long answer = 0;
 	for (int i = 1; i <= n; i++) {
-		
+
 		//i까지 누적합이 k면 바로 추가  - 누적합이 k가 되는 경우
 		if (arr[i] == k) {
-			
+
 			answer++;
 		}
 
@@ -47,7 +51,7 @@ int main() {
 		//누적합 저장, 마지막에 추가해야함 k가 0이면 두번 체크할수 있음
 		m[arr[i]]++;
 
-		
+
 	}
 
 	cout << answer;
