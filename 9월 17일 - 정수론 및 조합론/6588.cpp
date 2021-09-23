@@ -6,19 +6,11 @@
 #define MAX 1000000
 using namespace std;
 
+vector<bool>is_prime(MAX+ 1, true);
 
-
-int main() {
-
-	ios_base::sync_with_stdio(false);
-	cin.tie(NULL);
-	cout.tie(NULL);
-
-
-	vector<bool>is_prime(MAX + 1, true);
-
-	//n입력받을떄마다 제외하지 말고 while밖에서 소수 처리하기
-	for (int i = 2; i <= sqrt(MAX); i++) {
+void prime(int n) {
+	
+	for (int i = 2; i <= sqrt(n); i++) {
 		if (is_prime[i]) {
 			//맨 처음 소수는 제외하기
 			for (int j = i * i; j <= MAX; j += i) {
@@ -33,6 +25,19 @@ int main() {
 		}
 
 	}
+}
+
+
+
+int main() {
+
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	prime(MAX);
+	
+
 	int n = 1;
 
 
