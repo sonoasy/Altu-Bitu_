@@ -15,11 +15,13 @@ int gcd(int a, int b) {
 
 
 int main() {
-   
+
     int n;
+
     cin >> n;
     while (n--) {
-        int m,e;
+        long long sum = 0;
+        int m, e;
         cin >> m;
         vector<int>a;
         vector<int>a2;
@@ -29,18 +31,17 @@ int main() {
             a.push_back(e);
 
         }
+       
         for (int i = 0; i < m - 1; i++) {
             for (int j = i + 1; j < m; j++) {
                 int s1 = max(a[i], a[j]);
-                int s2= min(a[i], a[j]);
+                int s2 = min(a[i], a[j]);
                 int res = gcd(s1, s2);
-                a2.push_back(res);
+                sum+=res;
             }
         }
-        long long sum = 0;
-        for (int i = 0; i < a2.size();i++) {
-            sum += a2[i];
-        }
+       
+       
         cout << sum << '\n';
 
     }
