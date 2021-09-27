@@ -1,5 +1,6 @@
 #include <iostream>
 #include<vector>
+#include<cmath>
 using namespace std;
 
 int main() {
@@ -17,10 +18,11 @@ int main() {
         int sum = 0;
         int flag = 0;
 
+        double s = sqrt(2 * m);
         //숫자가 다를 필요없음!!
-        for (int i = 1; i < m; i++) {
-            for (int j = 1; j < m; j++) {
-                for (int k = 1; k < m; k++) {
+        for (int i = 1; i < s; i++) {
+            for (int j = 1; j < s; j++) {
+                for (int k = 1; k < s; k++) {
                     sum = 0;
                     sum += (i * (i + 1) / 2) + (j * (j + 1) / 2) +( k * (k + 1) / 2);
                     if (sum == m) {
