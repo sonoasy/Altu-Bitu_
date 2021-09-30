@@ -5,42 +5,53 @@ int n;
 int arr[21][21];
 int flag[21];
 int mins = 10000000000;
+
+int check() { //현재까지 구성된 각 팀의 능력치를 탐색하고 능력치 차를 리턴하는 함수
+
+	int start = 0, link = 0;
+	for (int i = 1; i <= n; i++) {
+		for (int j = 1; j <= n; j++) {
+
+			//i, j 번호가 1일때만 그 둘의 스타트 팀의 능력치에 더해준다
+			if (flag[i] == 1 && flag[j] == 1) {
+
+				start += arr[i][j];
+
+			}
+			//i,j 번호가 체크 안되어 0일때만 link팀의 능력치에 더해준다 
+			if (flag[i] == 0 && flag[j] == 0) {
+
+				link += arr[i][j];
+
+
+			}
+
+
+		}
+	}
+	int result = abs(start - link);
+	return result;
+
+
+}
 void go(int num, int idx) { //num은 여태까지 정한 사람 숫자, idx는 이제 정할 팀원 번호
 
 
 	//n명이 모여서 팀원 수는 다르더라도 1명 이상이어야 함 
 	//스타트팀이 1~n-1명일 경우 각각 능력치 차이 구해서 그 중 최솟값 구하기
-	if (num <= n - 1) {
-		//스타트팀 명수 달라질때마다 다시 start,link값 다시 계산하기
-		int start = 0, link = 0;
-		for (int i = 1; i <= n; i++) {
-			for (int j = 1; j <= n; j++) {
 
-				//i, j 번호가 1일때만 그 둘의 스타트 팀의 능력치에 더해준다
-				if (flag[i] == 1 && flag[j] == 1) {
+	if (num == n-1 ) {
+		return;
+	}
+		
+		
+	// 능력치 차이 최솟값 갱신,팀원 숫자가 0이 아니여야만 값 갱신
+	if (num != 0) {
 
-					start += arr[i][j];
-
-				}
-				//i,j 번호가 체크 안되어 0일때만 link팀의 능력치에 더해준다 
-				if (flag[i] == 0 && flag[j] == 0) {
-
-					link += arr[i][j];
-
-
-				}
-
-
-			}
+		int res = check();
+		if (mins > res) {
+			mins = res;
 		}
-		// 능력치 차이 최솟값 갱신
-		int result = abs(start - link);
-		if (mins > result) {
-			mins = result;
-
-		}
-
-
 	}
 	//오름차순으로 탐색해서 중복 없애기
 	for (int i = idx; i < n; i++) {
