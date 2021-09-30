@@ -5,7 +5,6 @@ using namespace std;
 
 int l, c;// 비번 l개의 문자, c는 알파벳 후보
 char ans[30]; //비밀번호 후보 문자 저장할 배열
-bool check[30] = { false }; //각 후보 문자가 쓰였는지 확인
 vector<char> str; //문자 후보
 
 
