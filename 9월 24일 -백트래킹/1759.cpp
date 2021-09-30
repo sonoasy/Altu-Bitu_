@@ -20,29 +20,27 @@ void go(int num, int idx, int cnt1, int cnt2) { //num은 지금까지 결정된 
 
 			return;
 		}
-		return; //모음,자음 갯수 조건 만족 못하면 종료
+		
 
 	}
 
 	for (int i = idx; i < c; i++) {
-		//해당 문자 str[i]가 쓰이지 않고
-		if (check[str[i] - 'a'] == false) {
-			check[str[i] - 'a'] = true;
+
+		
 			ans[num] = str[i]; //저장
-	           //모음이라면 cnt1인자 +1
-		   if (str[i] == 'a' || str[i] == 'e' || str[i] == 'i' || str[i] == 'o' || str[i] == 'u') {
+			   //모음이라면 cnt1인자 +1
+			if (str[i] == 'a' || str[i] == 'e' || str[i] == 'i' || str[i] == 'o' || str[i] == 'u') {
 
 				//중복문자를 피하기 위해서 idx에 해당되는 인자를 i+1로 인덱스를 오름차순으로 하나씩 탐색하도록 함
 				go(num + 1, i + 1, cnt1 + 1, cnt2);
-		  		check[str[i] - 'a'] = false;
-		   }
-		   else {//자음이라면 cnt2 인자+1
+	
+			}
+			else {//자음이라면 cnt2 인자+1
 				go(num + 1, i + 1, cnt1, cnt2 + 1);
-				check[str[i] - 'a'] = false;
-		   }
+			
+			}
 
-		}
-
+	
 	}
 
 }
@@ -63,7 +61,7 @@ int main() {
 	for (int i = 0; i < c; i++) {
 		cin >> s;
 		str.push_back(s);
-		
+
 
 	}
 	//사전 순이므로 정렬
