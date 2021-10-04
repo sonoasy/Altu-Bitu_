@@ -12,7 +12,7 @@ struct info {
 int main() {
 	//백준 1149번
 	vector<int>coin;
-	 
+
 	ios_base::sync_with_stdio(0);
 	cin.tie(0), cout.tie(0);
 
@@ -31,18 +31,14 @@ int main() {
 	//n번 집의 색은 n-1번 집의 색과 같지 않아야 함
 	//i(2<=i<n-1)번 집의 색은 i-1,i+1번 집의 색과 같지 않아야 함
 	//앞뒤로 있는 집은 서로 색이 같으면 안됨
-	
+
 
 	//n번째 집에서 r,g,b로 칠했을때 최솟값
 	vector<vector<int>> dp(n + 1, vector<int>(3, 0));
 
-	//첫번째 집
-	dp[1][0] = v[1].r;
-	dp[1][1] = v[1].g;
-	dp[1][2] = v[1].b;
+	
+	for (int i =1; i <= n; i++) {
 
-	for (int i = 2; i <= n; i++) {
-			
 		//앞집과 다른색으로 배정
 		dp[i][0] = min(dp[i - 1][1], dp[i - 1][2]) + v[i].r;
 		dp[i][1] = min(dp[i - 1][0], dp[i - 1][2]) + v[i].g;
@@ -50,7 +46,7 @@ int main() {
 
 
 	}
-	
+
 	int res = min(min(dp[n][0], dp[n][1]), dp[n][2]);
 	cout << res;
 
