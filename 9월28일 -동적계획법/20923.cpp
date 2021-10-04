@@ -3,54 +3,59 @@
 #include<deque>
 using namespace std;
 
-deque<int>doo,doo_ground;
-deque<int>suu,suu_ground;
+deque<int>doo, doo_ground;
+deque<int>suu, suu_ground;
 int n, m;
-int cnt=0;
+int cnt = 0;
 
 
 //종을 치는 조건
 void ring() {
+
+	
+    //수연: 그라운드 맨위에 있는 숫자 합이 5일때(어느쪽도 비지 않을때)
+	if (!doo_ground.empty() && !suu_ground.empty()) {
+		//도도,수연 각각 그라운드 맨위의 카드 합이 5이면 종을 침
+		if (doo_ground.back() + suu_ground.back() == 5) {
+			//상대방 그라운드에 있는 카드 더미를 뒤집어서 자신의 덱 아래로 넣기
+			
+			while(!doo_ground.empty()) {
+				suu.push_front(doo_ground.front());
+				doo_ground.pop_front();
+			}
+			//게임 1번 끝남
+			cnt++;
+		}
+
+	}
+	
+
 	//도도: 그라운드 맨위에 있는 숫자가 5가 나타날때
-	if ((!doo_ground.empty() &&doo_ground.back() == 5) || (!suu_ground.empty()&&suu_ground.back() == 5)) {
-		//상대방 그라운드에 있는 카드 더미를 뒤집어서 자신의 덱 아래로 넣기
-		int len=suu_ground.size();
-		for (int i = 0; i < len; i++) {
-			doo.push_front(suu_ground[i]);
-		}
-		cnt++;
-	}
+	if (!doo_ground.empty() && !suu_ground.empty()) {
+		if (doo_ground.back() == 5 || suu_ground.back() == 5) {
+			//상대방 그라운드에 있는 카드 더미를 뒤집어서 자신의 덱 아래로 넣기
 
-	//수연: 그라운드 맨위에 있는 숫자 합이 5일때(어느쪽도 비지 않을때)
-	if ((doo_ground.back() + suu_ground.back() == 5) && !doo_ground.empty() && !suu_ground.empty()) {
-		//상대방 그라운드에 있는 카드 더미를 뒤집어서 자신의 덱 아래로 넣기
-		int len2 = doo_ground.size();
-		for (int i = 0; i < len2; i++) {
-			suu.push_front(doo_ground[i]);
+			while (!suu_ground.empty()) {
+				doo.push_front(suu_ground.front());
+				suu_ground.pop_front();
+			}
+			//게임 한번 끝남
+			cnt++;
 		}
 
-		cnt++;
 	}
+	
 
-	//덱이 비게 되면 다른 상대방이 승리
-	if (doo.empty()) {
-		cout << "su";
-		return;
-	}
-	else if (suu.empty()) {
-		cout << "do";
-		return;
-	}
 }
 
 
 int main() {
 	//백준 20923번
-	
+
 	ios_base::sync_with_stdio(0);
 	cin.tie(0), cout.tie(0);
 
-	
+
 	cin >> n >> m;
 	int d, s;
 	while (n--) {
@@ -61,26 +66,48 @@ int main() {
 
 	//deque 맨뒤에서부터 그라운드에 올려놓음
 	while (1) {
-		//도도가 그라운드에 올려놓기
+		//도도 덱에 카드가 있으면 도도 그라운드에 올려놓기
 		if (!doo.empty()) {
 			doo_ground.push_back(doo.back());
 			doo.pop_back();
 		}
-	
+
+		//종울리수 있는지 확인
 		ring();
 
-		//수연이가 그라운드에 올려놓기
+		
+		//수연 덱에 카드가 있으면 수연 그라운드에 올려놓기
 		if (!suu.empty()) {
-			suu_ground.push_back(doo.back());
+			suu_ground.push_back(suu.back());
 			suu.pop_back();
 		}
+		//종 울리수 있는지 확인
 		ring();
-	 
+
 		//m번 진행했으면 종료
 		if (cnt == m)break;
-	    
+		//덱이 비었으면 상대방이 승리
+		if (doo.empty()) { //수연이 승리
+			while (!doo_ground.empty()) {
+				suu.push_front(doo_ground.front());
+				doo_ground.pop_front();
+			}
+			cnt++;
+
+		}
+		if (suu.empty()) {//도도가 승리
+			while (!suu_ground.empty()) {
+				doo.push_front(suu_ground.front());
+				suu_ground.pop_front();
+			}
+			cnt++;
+		}
 	
+
 	}
+
+
+
 	if (doo.size() > suu.size()) {
 		cout << "do";
 	}
@@ -95,6 +122,6 @@ int main() {
 
 
 
-	
+
 
 }
