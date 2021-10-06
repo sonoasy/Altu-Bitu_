@@ -8,7 +8,7 @@ long long price[100001];
 
 int main() {
 
-
+        //백준 1448번
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
 
