@@ -1,74 +1,49 @@
 #include <iostream>
-#include<vector>
-#include<algorithm>
+#include <algorithm>
+#include <vector>
 
-using namespace  std;
+using namespace std;
 
+//삼각형이 될때 세변의 길이릐 합의 최댓값
+int makeTriangle(int n, vector<int>& straw) {
+    int ans = -1; //최댓값을 저장하기 위해 변수 설정, 없으면 -1출력하므로 -1로 초기화
+
+    //내림차순으로 끝에서 3번째까지 탐색 
+    for (int i = 0; i < n - 2; i++) {
+        //내림차순이므로 맨 앞이 길이가 가장 큼
+        if (straw[i] < straw[i + 1] + straw[i + 2]) { //삼각형이라면
+            ans = straw[i] + straw[i + 1] + straw[i + 2]; //제일 처음에 삼각형 되는게 최댓값임 
+            break;
+        }
+    }
+    //결과값 리턴
+    return ans;
+}
+
+/**
+ * 세 변의 길이의 합이 최대가 되도록 삼각형을 만드는 문제
+ * 주어지는 빨대의 길이를 내림차순 정렬한 후, 길이가 긴 빨대부터 그리디적으로 탐색
+ * 현재 빨대 길이를 가장 긴 변의 길이라 가정하고 삼각형이 만들어지는지 확인하면 된다
+ */
 
 int main() {
+    int n; //빨대 갯수
 
-	//백준 1448번
+    //입력
+    //빨대갯수
+    cin >> n;
+    //각 빨대에 대한 길이를 입력받음
+    vector<int> straw(n, 0);
+    //n개의 빨대에 대하여
+    for (int i = 0; i < n; i++)
+        cin >> straw[i];//길이를 저장
 
-	ios_base::sync_with_stdio(false);
-	cin.tie(NULL);
+    //연산
+    //내림차순 정렬
+    sort(straw.begin(), straw.end(), greater<>());
 
-	int n; //빨대의 갯수
-	cin >> n;  //n은 3보다 크거나 같고 1000000보다 작거나 같음
+    //출력
+    cout << makeTriangle(n, straw);
 
-	vector<int>straw(n + 1, 0);
-	//빨대의 각 길이
-	for (int i = 1; i <= n; i++) {
-		cin >> straw[i];
-	}
-
-	//삼각형을 만들수 없으면 -1 출력, 만들수 있으면 세변의 길이 합 최댓값 출력
-	//삼각형 조건: 가장 큰 변 c<a+b 
-	//4,5,6,7,20 ->
-
-
-
-	
-	int sum = 0;
-	sort(straw.begin(), straw.end());
-	
-	int flag = 0;
-	int go1 = 0; //삼각형이 되는 3번째 인덱스 체크
-	int go2 = 0;
-	int go3 = 0;
-	for (int i = 1; i <= n - 2; i++) {
-		for (int j = i + 1; j <= n - 1; j++) {
-			for (int k = j + 1; k <= n; k++) {
-				//정렬했으므로 k가 가장 큰수
-				if (straw[k] < straw[i] + straw[j]) { //삼각형이 되면 최댓값이므로 삼각형 되는 마지막까지 확인
-					go1 = i;
-					go2 = j;
-					go3 = k;
-					
-				}
-				else {
-					break;
-				}
-			}
-			
-			
-		}
-
-
-	}
-	if (go1&&go2&&go3) {
-		sum = straw[go1] + straw[go2] + straw[go3];
-		
-	}
-
-
-	if (sum== 0) {
-		cout << -1;
-	}
-	else {
-		cout << sum;
-	}
-
-
-	
-
+    return 0;
 }
