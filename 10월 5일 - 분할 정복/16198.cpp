@@ -41,7 +41,7 @@ int main() {
     //연산
     backtracking(0);
 
-    //출력
+    //결과 출력
     cout << ans << '\n';
 
     return 0;
