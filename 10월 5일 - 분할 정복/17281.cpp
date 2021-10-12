@@ -69,6 +69,6 @@ int main() {
         swap(entry[3], entry[0]); //원래대로 복구
     } while (next_permutation(entry.begin() + 1, entry.end())); //순열 조합동안 실행
 
-    //출력
+    //출력 
     cout << ans;
 }
