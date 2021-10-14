@@ -6,7 +6,7 @@ using namespace std;
 
 vector<long long>v;
 int main() {
-   
+         //이번 17회 이퍼 대비 문제로 프로그래머스의 해당 문제 풀이가 있었는데, 그때 풀이를 떠올리면서 풀었습니다!
 	//백준 3079번
 
 	long long n, m; //입국 심사대, 친구 m명
