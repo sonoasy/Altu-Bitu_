@@ -1,75 +1,49 @@
-#include<iostream>
-#include<vector>
-#include<string>
-#include<queue>
-#include<algorithm>
+#include <iostream>
+#include <vector>
 
-using namespace  std;
-int cnt = 0;
-int arr[26] = { 0 };
+using namespace std;
+const int SIZE = 26; //알파벳 갯수는 총 26개 
 
-void check(string s,string start) {
-
-	int find = 0;
-	int flag = 0;
-	int tmp[26] = { 0 };
-	for (int i = 0; i < s.size(); i++) {
-		tmp[s[i] - 'A']++;
-		if (tmp[s[i] - 'A'] > arr[s[i] - 'A'])flag++; //
-		if (arr[s[i] - 'A'] == 1)continue;
-		else find++;//start문장에 없는 단어 갯수		
-	}
-	if (s.size() == start.size()&&find<=1&&flag<=1) {//길이가 같고 같은 문자로 구성되어있으면
-		
-		cnt++;
-		
-		
-	}
-	else if(s.size()==start.size()-1 &&find<=1 && flag <= 1){ //문자 알파벳 구성은 같고 한 문자를 더해서 같아지는 경우
-		cnt++;
-
-	}
-	else if (s.size() == start.size() + 1 && find <= 1 && flag <= 1) { //문자 알파벳 구성은 같고한 문자를 빼서 같아지는 경우 
-		cnt++;
-	}
-	else { //길이가 같은데 문자구성이 2개 이상 다르거나 길이가 다른데 문자구성이 2개이상 다를경우
-		return;
-
-	}
-
+//알파벳별 등장횟수 저장
+vector<int> alphaMap(string str) { //str을 입력받아서 
+    vector<int> result(SIZE, 0); //26개의 알파벳에 대하여 
+    for (int i = 0; i < str.size(); i++) //모두 탐색하여 등장하는 알파벳은
+        result[str[i] - 'A']++; //+1해준다
+    return result; //출현 횟수를 기록한 result 벡터를 반환
 }
 
-
-
+/**
+ * 단어가 같은 구성일 조건
+ * 1. 두 개의 단어가 같은 종류의 문자로 이루어짐
+ * 2. 같은 문자는 같은 개수만큼 있음
+ *
+ * 비슷한 단어의 조건
+ * 1. 한 단어에서 한 문자를 더하거나, 빼면 같은 구성이 됨
+ *    -> 두 단어에서 다른 문자의 개수가 총 1개
+ * 2. 한 단어에서 한 문자를 바꾸면 같은 구성이 됨
+ *    -> 두 단어에서 다른 문자의 개수가 총 2개
+ *    -> !주의! 이때, 두 단어의 길이가 같아야 함 cf) doll | do
+ */
 int main() {
+    int n, ans = 0; //단어갯수, 정답
+    string source, target; //검사하는 단어, 검사할 단어
 
-	ios_base::sync_with_stdio(false);
-	cin.tie(NULL);
+    //입력
+    cin >> n >> source; //단어갯수, 검사하는 대상의 단어
 
-	//같은 알파벳으로 구성되거나 한 던어에서 한 문자를 더하거나 빼거나 문자를 바꿔서 같아지면 비슷한 단어
+    //연산
+    vector<int> source_alpha = alphaMap(source); //source 단어에 대해서 탐색할것임
+    while (--n) { //n-1개의 단어에 대해서 비슷한 단어인지 탐색 
+        cin >> target; //검사할 단어를 탐색 
 
-	
-	int n;
-	cin >> n;
-	n--;
-	string start;
-	string s;
-	cin >> start;
-	for (int i = 0; i < start.size(); i++) {
-		arr[start[i] - 'A']++;
-	}
+        int diff = 0; //다른점 카춘트 
+        vector<int> target_alpha = alphaMap(target); //target의 알파벳 출현 빈도 기록한 벡터
+        for (int i = 0; i < SIZE; i++) //두 단어의 차이
+            diff += abs(source_alpha[i] - target_alpha[i]); //단어의 차이가 있으면 +1
+        if (diff <= 1 || (diff == 2 && source.size() == target.size())) //문자를 더하거나, 빼거나, 바꾸거나
+            ans++;    //단어의 차이가 1가지면 ok, 단어의 차이가 2이면 길이가 같을때만 됨
+    }
 
-	while (n--) {
-		cin >> s;
-		check(s,start);
-		
-	}
-	
-	cout << cnt;
-
-
-
-
-
-
+    //출력
+    cout << ans;
 }
