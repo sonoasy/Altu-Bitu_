@@ -6,10 +6,13 @@
 
 using namespace std;
 
+//먼저 제출한 최단경로 과제 13549번과 유사하여 해당 문제 과제를 참고하여 풀었습니다
+
+
 vector<int> visited(MAX, 0); //지점에 도달한 시간
 
 int find(int n, int k) {
-	visited[n] = 0; //시작점
+	visited[n] = 1; //시작점 visited =0으로 하지말고 방문도 했으니까 1로 설정하기!!! 나중에 결과값 -1하기!!!
 	queue<int>q;
 	int finded = 0;
 
@@ -19,12 +22,12 @@ int find(int n, int k) {
 		q.pop();
 
 		if (curr == k) {//동생이 있는 위치면
-			finded = visited[curr];
+			finded = visited[curr]-1;
 			break;
 		}
 		else {
 			//동생이 있는 위치가 아니면 
-	        //순간이동하기
+			//순간이동하기
 			int next = curr * 2;
 			if (next >= 0 && next <= 100000 && visited[next] == 0) {
 				visited[next] = visited[curr] + 1;
@@ -46,11 +49,11 @@ int find(int n, int k) {
 
 			}
 		}
-	
+
 
 
 	}
-	
+
 	return finded;
 
 }
@@ -68,6 +71,5 @@ int main() {
 	cin >> n >> k;
 	cout << find(n, k) << '\n';
 
-	
+
 }
-                         
