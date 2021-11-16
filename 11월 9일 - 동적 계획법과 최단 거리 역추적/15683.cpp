@@ -48,7 +48,6 @@ void backtracking(int idx) {
         ans = min(ans, blindSpot()); //사각지대 계산 후 최솟값 갱신
         return;//종료
     }
-
     int row = idx / m;//행 위치
     int col = idx % m;//열 위치
     int cur = board[row][col];//현재 위치의 정보
