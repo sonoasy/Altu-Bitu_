@@ -32,7 +32,7 @@ void unionInput(int x, int y) {
         parent[yp] += parent[xp];//갱신
         parent[xp] = yp;//갱신
     }
-}
+} 
 
 int cntTree(int n) { //트리 갯수 세기
     int cnt = 0; //0에서 시작
