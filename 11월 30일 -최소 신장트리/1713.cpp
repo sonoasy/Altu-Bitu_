@@ -22,9 +22,15 @@ void find(int n, int num, deque<pair<int,int>> student) {
 		cnt[tmp.second]++; //추천횟수 증가
 	
 		cout << '\n';
-		
-		
+		for (int i = 0; i < cand.size(); i++) { //사진틀에 있는 후보들 중에서 
+			//이미 사진틀에 있으면 추천수 +1 하고 나감
+			if (cand[i].second == tmp.second) {
+				cnt[cand[i].second]++;
 
+			}
+
+		}
+		
 		if (cand.size() < n) {//사진틀에 있는 수가 n보다 작으면
 
 			cand.push_back({ tmp.first,tmp.second });//바로 추가하기
@@ -34,11 +40,16 @@ void find(int n, int num, deque<pair<int,int>> student) {
 			int min_cnt = 10000000;
 			int min_flag = 10000000;
 			for (int i = 0; i < cand.size(); i++) { //사진틀에 있는 후보들 중에서 
-				if (cnt[cand[i].first] <= min_cnt && min_flag>tmp.first ) { //추천횟수 적은순, 인덱스 앞일수록 오래된 사람
+				
+				if (cnt[cand[i].first] < min_cnt ) { //추천횟수 적은순, 인덱스 앞일수록 오래된 사람
 					min_cnt = cnt[cand[i].first]; //추천횟수 작은 수
-					
 					min_flag = i;//추천횟수 가장 작은 인덱스
 					//cout << "min:" << min_flag;
+				}
+				else if (cnt[cand[i].first] == min_cnt) {//추천횟수가 같으면 
+					if (cand[i].second < min_flag) {//인덱스가 오래된(수가 높은)것 선택하기
+						min_flag = cand[i].second;
+					}
 				}
 
 			}
