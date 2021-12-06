@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-#include <queue>
+#include <deque>
 #include <algorithm>
 
 using namespace std;
