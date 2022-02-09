@@ -57,7 +57,7 @@ vector<int> solution(vector<vector<string>> places) {
                
             }
             
-        
+         
         }
         //answer.push_back(res);
     }
