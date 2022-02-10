@@ -33,8 +33,8 @@ bool bfsdp(int k,int s){ //거리두기가 되어는지 체크하는 함수, 맨
             int curr=q.front().first;
             int curc=q.front().second;
             q.pop();
-            if(check[curr][curc]>=3)return true; //맨해튼거리 3되도록 아무 문제 없으면 1     >3하면 틀렸는데 >=3하니까 맞음!!!!3이 되는이유는 이미 맨해튼거리2에서 통과된 큐이기때문인듯   
-            
+            if(check[curr][curc]>=3)continue; //return true; //맨해튼거리 3되도록 아무 문제 없으면 1     >3하면 틀렸는데 >=3하니까 맞음!!!!3이 되는이유는 이미 맨해튼거리2에서 통과된 큐이기때문인듯   
+            //return true보다 모든방면이므로 continue가 더 적절한듯함
             for(int w=0;w<4;w++){
                 
                 int nextr=curr+dx[w];
