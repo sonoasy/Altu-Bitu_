@@ -84,7 +84,7 @@ int solution(string begin, string target, vector<string> words) {
         for(int i=0;i<arr.size();i++){
             
             q.push(arr[i]);
-            dist[i]=1;
+            dist[arr[i]]=1;  //이부분을 dist[i]로 잘못 설정해서 통과안됨!!
         }
         
         while(!q.empty()){
