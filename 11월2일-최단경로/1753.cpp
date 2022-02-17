@@ -20,7 +20,7 @@ vector<int> dijkstra(int vertex, int start, vector<vector<ci>>& graph) {//정점
         int node = pq.top().second;//정점
         pq.pop();//큐에서 꺼냄
 
-        if (weight > dist[node]) //이미 확인했던 정점
+        if (weight > dist[node]) //이미 확인했던 정점  이렇게 되는 경우?
             continue;//아무것도 하지 않음 
         for (int i = 0; i < graph[node].size(); i++) {//node와 연결된 모든 정점에 대하여 
             int next_node = graph[node][i].first; //연결된 정점
@@ -42,9 +42,12 @@ int main() {
     vector<vector<ci>> graph(vertex + 1, vector<ci>(0)); //인접 리스트
     while (edge--) { //모든 간선에 대한 정보 입력
         cin >> u >> v >> w; //u ->v , 가중치 w
-        graph[u].emplace_back(v, w); //방향 그래프
+        graph[u].emplace_back(v, w); //방향 그래프  emplace back은 객체없이 가능
     }
-
+    //2차원 벡터가 아니라 번호 u자리에 쌍 v,w를 저장, 여러개일수 있으므로 2차원..?
+    //리스트같이 구현하는듯
+    //여러 간선 가능?
+    
     //연산
     vector<int> ans = dijkstra(vertex, k, graph); //다익스트라, dist 반환 저장
 
