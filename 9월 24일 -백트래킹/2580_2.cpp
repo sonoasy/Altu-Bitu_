@@ -57,3 +57,16 @@ vector<vector<int>> solution(vector<vector<int>>sudoku){
 	go(0);
   return sudoku3;
 }
+int main(){
+    vector<vector<int>> sudoku(9, vector<int>(9));
+    for (int i=0; i<9; i++) {
+        for (int j=0; j<9; j++) cin >> sudoku[i][j];
+    }
+    auto output = solution(sudoku);
+    for (int i=0; i<9; i++) {
+        for (int j=0; j<9; j++) cout << output[i][j] << ' ';
+        cout << '\n';
+    }
+    return 0;
+}
+
